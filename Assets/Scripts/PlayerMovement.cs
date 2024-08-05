@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
         if(Input.touchCount > 0){
             Touch touch = Input.GetTouch(0);
 
-            if(touch.position.x > 140){
+            if(touch.position.x > Screen.width/2){
                 transform.position += transform.right * speed;
             }
             else{
