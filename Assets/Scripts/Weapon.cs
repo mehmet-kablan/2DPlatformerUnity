@@ -8,34 +8,48 @@ public class Weapon : MonoBehaviour
     public GameObject weapon;
     public GameObject bullet;
     public float weaponCooldown = 1;
+    public int bulletCount = 1;
 
     // Start is called before the first frame update
     void Start()
     {
         InvokeRepeating("SpawnBullet",1.0f,weaponCooldown);
 
-        print("x" + weapon.GetComponent<SpriteRenderer>().bounds.max.x);
-        print("y" + weapon.GetComponent<SpriteRenderer>().bounds.max.y);
     }
 
     // Update is called once per frame
     void Update()
     {
-        print(weapon.GetComponent<SpriteRenderer>().bounds.max);
-
         
     }
 
     private void SpawnBullet(){
 
-        float center = weapon.GetComponent<SpriteRenderer>().bounds.min.x + ((weapon.GetComponent<SpriteRenderer>().bounds.max.x - weapon.GetComponent<SpriteRenderer>().bounds.min.x) / 2);
+        float totalDistance = weapon.GetComponent<SpriteRenderer>().bounds.max.x - weapon.GetComponent<SpriteRenderer>().bounds.min.x;
+        float bulletDistance = totalDistance / ((bulletCount > 5 ? 5 : bulletCount) + 1);
+        float firstBulletLocX = weapon.GetComponent<SpriteRenderer>().bounds.min.x + bulletDistance;
+        
 
 
+        for(int i = 0; i < 5; i++){
+            Vector3 firstBulletSpawnLoc = new Vector3(firstBulletLocX + (i * bulletDistance),
+            weapon.GetComponent<SpriteRenderer>().bounds.max.y,
+            0);
+                Instantiate(bullet, firstBulletSpawnLoc, new Quaternion(0,0,0,0));
+        }
 
-        Vector3 bulletSpawnLoc = new Vector3(center,
-        weapon.GetComponent<SpriteRenderer>().bounds.max.y,
-        0);
+        if(bulletCount > 5){
 
-        Instantiate(bullet,bulletSpawnLoc, new Quaternion(0,0,0,0));
+            bulletDistance = totalDistance / (bulletCount - 5 + 1);
+            firstBulletLocX = weapon.GetComponent<SpriteRenderer>().bounds.min.x + bulletDistance;
+            for(int i = 0; i < bulletCount - 5; i++){
+            Vector3 firstBulletSpawnLoc = new Vector3(firstBulletLocX + (i * bulletDistance),
+            weapon.GetComponent<SpriteRenderer>().bounds.max.y + 1,
+            0);
+                Instantiate(bullet, firstBulletSpawnLoc, new Quaternion(0,0,0,0));
+        }
+        }
+        
+
     }
 }
