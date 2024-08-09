@@ -6,6 +6,7 @@ public class Projectile : MonoBehaviour
 {
 
     public float projectileSpeed = 1;
+    public float projectileDamage = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -18,4 +19,5 @@ public class Projectile : MonoBehaviour
     {
         transform.position += new Vector3(0,0.1f,0) * projectileSpeed;
     }
+
 }

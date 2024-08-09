@@ -30,14 +30,18 @@ public class Weapon : MonoBehaviour
         float firstBulletLocX = weapon.GetComponent<SpriteRenderer>().bounds.min.x + bulletDistance;
         
 
+        //if(bulletCount <= 5){
+            for(int i = 0; i < bulletCount; i++){
 
-        for(int i = 0; i < 5; i++){
-            Vector3 firstBulletSpawnLoc = new Vector3(firstBulletLocX + (i * bulletDistance),
-            weapon.GetComponent<SpriteRenderer>().bounds.max.y,
-            0);
+                if(i<5){
+                Vector3 firstBulletSpawnLoc = new Vector3(firstBulletLocX + (i * bulletDistance),
+                weapon.GetComponent<SpriteRenderer>().bounds.max.y,
+                0);
+                
                 Instantiate(bullet, firstBulletSpawnLoc, new Quaternion(0,0,0,0));
-        }
-
+                }
+            }
+        //}
         if(bulletCount > 5){
 
             bulletDistance = totalDistance / (bulletCount - 5 + 1);
@@ -46,7 +50,8 @@ public class Weapon : MonoBehaviour
             Vector3 firstBulletSpawnLoc = new Vector3(firstBulletLocX + (i * bulletDistance),
             weapon.GetComponent<SpriteRenderer>().bounds.max.y + 1,
             0);
-                Instantiate(bullet, firstBulletSpawnLoc, new Quaternion(0,0,0,0));
+            
+            Instantiate(bullet, firstBulletSpawnLoc, new Quaternion(0,0,0,0));
         }
         }
         
